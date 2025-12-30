@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VBS | Virtual Banking System</title>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --glossy-purple: linear-gradient(145deg, #8e2de2, #4a00e0);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* Animated Mesh Background */
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(45deg, #667eea, #764ba2, #ff75c3, #8e2de2);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Blur Overlay for that Professional Depth */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            backdrop-filter: blur(50px);
+            z-index: -1;
+        }
+
+        /* Main Layout Container */
+        .hero-wrapper {
+            display: flex;
+            width: 90%;
+            max-width: 1000px;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            animation: slideIn 1s ease-out;
+        }
+
+        /* Left Side: Login/Signup Content */
+        .content-left {
+            flex: 1.2;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .header-brand h1 {
+            color: #4a00e0;
+            font-size: 42px;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .content-left h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .content-left p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+
+        /* Right Side: Glossy Curved Panel */
+        .content-right {
+            flex: 1;
+            background: var(--glossy-purple);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-radius: 150px 0 0 150px;
+            box-shadow: -15px 0 35px rgba(0,0,0,0.2);
+            padding: 40px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Glossy Shine Effect */
+        .content-right::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 6s infinite;
+        }
+
+        .shining-text {
+            color: white;
+            font-size: 48px;
+            font-weight: 800;
+            text-transform: uppercase;
+            line-height: 1.1;
+            text-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .btn {
+            padding: 16px 35px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-primary {
+            background: var(--glossy-purple);
+            color: white;
+            box-shadow: 0 10px 20px rgba(74, 0, 224, 0.3);
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: #4a00e0;
+            border: 2px solid #4a00e0;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.03); opacity: 0.9; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-wrapper {
+                flex-direction: column;
+                height: auto;
+                width: 95%;
+            }
+            .content-right {
+                border-radius: 0;
+                padding: 60px 20px;
+            }
+            .content-left {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-wrapper">
+        <div class="content-left">
+            <div class="header-brand">
+                <h1>VBS</h1>
+            </div>
+            <h2>Welcome Back</h2>
+            <p>Experience the next generation of digital finance. Secure, lightning-fast, and designed for your lifestyle. Manage your assets with global-grade encryption.</p>
+            
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="window.location.href='login.html'">Login to Account</button>
+                <button class="btn btn-secondary" onclick="window.location.href='signup.html'">Get Started</button>
+            </div>
+        </div>
+
+        <div class="content-right">
+            <div class="shining-text">
+                Virtual<br>Banking<br>System
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

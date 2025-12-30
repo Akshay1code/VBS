@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VBS | Create Account</title>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --glossy-purple: linear-gradient(145deg, #8e2de2, #4a00e0);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* Animated Mesh Background */
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #667eea, #764ba2, #ff75c3, #8e2de2);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism Card Container */
+        .signup-card {
+            display: flex;
+            width: 100%;
+            max-width: 950px;
+            min-height: 650px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            animation: fadeInScale 0.8s ease-out;
+        }
+
+        /* Left Panel - The Branding Sidebar */
+        .panel-left {
+            flex: 1;
+            background: var(--glossy-purple);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Shining/Floating Animation on Sidebar */
+        .panel-left::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 50%);
+            animation: pulseLight 8s infinite alternate;
+        }
+
+        .panel-left h1 { font-size: 56px; font-weight: 800; z-index: 2; letter-spacing: -2px; }
+        .panel-left p { font-size: 18px; opacity: 0.9; z-index: 2; margin-top: 10px; }
+
+        /* Right Panel - The Form */
+        .panel-right {
+            flex: 1.4;
+            padding: 50px 60px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .panel-right h2 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        /* Form Controls */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* Make some fields full width */
+        .full-width { grid-column: span 2; }
+
+        .form-group { margin-bottom: 18px; }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #555;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #764ba2;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(118, 75, 162, 0.1);
+        }
+
+        .btn-create {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: var(--glossy-purple);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 10px 20px rgba(74, 0, 224, 0.2);
+        }
+
+        .btn-create:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(74, 0, 224, 0.3);
+        }
+
+        /* Messages */
+        .message {
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+        .message.success { background: #d1fae5; color: #065f46; display: block; border-left: 5px solid #10b981; }
+        .message.error { background: #fee2e2; color: #991b1b; display: block; border-left: 5px solid #ef4444; }
+
+        .links {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .links a {
+            color: #764ba2;
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .links a:hover { text-decoration: underline; }
+
+        /* Animations */
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes pulseLight {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(10%, 10%); }
+        }
+
+        /* Responsive Fix */
+        @media (max-width: 850px) {
+            .signup-card { flex-direction: column; width: 100%; }
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            .panel-left { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="signup-card">
+        <div class="panel-left">
+            <h1>VBS</h1>
+            <p>Join the Future of Banking</p>
+            <div style="margin-top: 30px; font-size: 14px; background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 50px; z-index: 2;">
+                Fast • Secure • Modern
+            </div>
+        </div>
+
+        <div class="panel-right">
+            <h2>Create Account</h2>
+            
+            <div id="signupMessage" class="message"></div>
+
+            <form id="signupForm">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>Full Name</label>
+                        <input type="text" id="signupName" placeholder="e.g. John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="signupUsername" placeholder="johndoe123" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="signupEmail" placeholder="john@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="signupPassword" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Account Role</label>
+                        <select id="signupRole" required>
+                            <option value="">Select Role</option>
+                            <option value="customer">Customer</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-create">Initialize Account</button>
+            </form>
+
+            <div class="links">
+                Already part of VBS? <a onclick="window.location.href='login.html'">Login here</a>
+                <br><br>
+                <a onclick="window.location.href='home.html'">← Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Core Logic Preserved
+        const showMessage = (id, text, type) => {
+            const msg = document.getElementById(id);
+            msg.innerText = text;
+            msg.className = "message " + type; // Display handled by class
+        };
+
+        const signupForm = document.getElementById("signupForm");
+
+        signupForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const signupData = {
+                name: document.getElementById("signupName").value,
+                username: document.getElementById("signupUsername").value,
+                email: document.getElementById("signupEmail").value,
+                password: document.getElementById("signupPassword").value,
+                role: document.getElementById("signupRole").value
+            };
+
+            fetch("http://localhost:8081/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(signupData)
+            })
+            .then(response => response.text())
+            .then(result => {
+                if (result === "Successfully Registered") {
+                    showMessage("signupMessage", "Registration Successful! Redirecting...", "success");
+                    setTimeout(() => {
+                        window.location.href = "login.html";
+                    }, 1500);
+                } else {
+                    showMessage("signupMessage", result, "error");
+                }
+            })
+            .catch(error => {
+                showMessage("signupMessage", "Server connection error. Please try again.", "error");
+                console.error("Signup error:", error);
+            });
+        });
+    </script>
+</body>
+</html>
