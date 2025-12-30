@@ -121,9 +121,10 @@ public class UserController {
         return userRepo.findByRole("customer",sort);
     }
     @GetMapping("/users/{keyword}")
-    public List<User> getUsername(@PathVariable String keyword, @RequestParam String sortBy, @RequestParam String order){
+    public List<User> getUsername(@PathVariable String keyword){
         return userRepo.findByUsernameContainingIgnoreCaseAndRole(keyword,"customer");
     }
+
     @DeleteMapping("delete-user/{userId}/admin/{adminId}")
     public String delete(@PathVariable Integer userId, @PathVariable Integer adminId){
         User user=userRepo.findById(userId).orElseThrow(()->new RuntimeException("User not found"));
