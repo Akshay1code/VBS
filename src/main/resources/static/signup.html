@@ -281,7 +281,7 @@
                 role: document.getElementById("signupRole").value
             };
 
-            fetch("http://localhost:8081/register", {
+            fetch("https://vbs-rqq0.onrender.com/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(signupData)
